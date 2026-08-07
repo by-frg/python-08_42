@@ -3,3 +3,4 @@ __pycache__/
 .mypy_cache/
 test*.py
 venv/
+matrix_env/
