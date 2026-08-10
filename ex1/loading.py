@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 from importlib import metadata, import_module
 import sys
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
+#dictionary to use in for cycle
 lib_dict = {
             "pandas": "Data manipulation",
             "numpy": "Numerical computation",
-            "requests": "Network access",
             "matplotlib": "Visualization",
            }
+print("\nLOADING STATUS: Loading Programs...")
+print("\nChecking Dependencies:")
+#fail list to print failures only once and outside cycle
 lib_fail: list[str] = []
 for lib, msg in lib_dict.items():
     try:
@@ -31,6 +31,9 @@ if len(lib_fail) > 0:
         sys.exit(1)
 
 
+#subject requests a compare function that compares vrsion installed vs requirements
+#create dictionary with module:version, with 2 conditions: .txt and .toml
+#in subject .toml function is not authorized so I did manual cycle
 def compare_versions(filename: str, filetype: str) -> None:
     vers_dict: dict[str,str] = {}
     if filetype == "txt":
@@ -64,22 +67,42 @@ def compare_versions(filename: str, filetype: str) -> None:
         except ModuleNotFoundError:
             print(f"Error: '{lib}' not found. Required version for '{lib}' : {vers}")
 
+
+print("\nComparing installed versions with requirements")
+print(">> .TXT:")
+compare_versions("requirements.txt", "txt")
+print("\n>> .TOML:")
+compare_versions("pyproject.toml", "toml")
+
+#programa so corre isto se passar a validacao (se nao tiver sys.exit para o programa)
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
 #Creating the Arrays & num.computations [NUMPY]
+print("\nAnalysing Matrix Data...")
 array_x = np.random.randint(15, size=(1000))
-array_y = np.random.randint(1000, size=(1000))
+array_y = np.random.randint(50, size=(1000))
 y_mean = np.mean(array_y)
 y_median = np.median(array_y)
 y_std = np.std(array_y)
 
 #Creating the Table [PANDAS]
-data = {'worlds': array_x, 'population': array_y}
-dframe = pd.DataFrame(data, columns=['worlds', 'population'])
-grouped = dframe.groupby("worlds")["population"].sum()
+print("Processing 1000 Data points...")
+data = {'zones': array_x, 'agents': array_y}
+dframe = pd.DataFrame(data, columns=['zones', 'agents'])
+grouped = dframe.groupby("zones")["agents"].sum()
 grouped_mean = np.mean(grouped.values)
 
 #Creating the plot [matplotlib]
-plt.bar(grouped.index, grouped.values, label = "Population")
-plt.axhline(y=grouped_mean, label = "Pop. Mean", color = "red")
+print("Generating visualization...")
+plt.bar(grouped.index, grouped.values, label = "Agents Detected")
+plt.axhline(y=grouped_mean, label = "Avg. Agents per zone", color = "red")
 plt.legend()
+plt.xlabel("Matrix Zones")
+plt.ylabel("Agents Detected")
 #plt.show()
 plt.savefig('matrix_analysis.png')
+
+print("\nAnalysis Complete")
+print("Results saved to: matrix_analysis.png")
