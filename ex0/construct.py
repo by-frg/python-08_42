@@ -20,7 +20,7 @@ if sys.prefix == sys.base_prefix:
 else:
     matrix_status = "Welcome to the construct"
     in_venv = True
-    virtual_env = os.path.basename(os.getenv("VIRTUAL_ENV"))
+    virtual_env = os.path.basename(os.getenv("VIRTUAL_ENV", "None detected"))
     message = (
                "\nSUCCESS: You're in an isolated environment!\n"
                "Safe to install packages without affecting\n"
