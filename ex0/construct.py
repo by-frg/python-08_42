@@ -3,7 +3,8 @@ import sys
 import os
 import site
 
-
+# sys.prefix - pasta raiz do Python atualmente em uso
+# sys.base_prefix - pasta raiz do python original do sistema
 if sys.prefix == sys.base_prefix:
     matrix_status = "You're still plugged in"
     in_venv = False

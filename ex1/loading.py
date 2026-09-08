@@ -2,7 +2,7 @@
 from importlib import metadata, import_module
 import sys
 
-# dictionary to use in for cycle
+# dictionary to use in cycle for
 lib_dict = {
             "pandas": "Data manipulation",
             "numpy": "Numerical computation",
@@ -25,7 +25,7 @@ if len(lib_fail) > 0:
           f"\nMissing modules: {', '.join(lib_fail)}"
           "\n\nInstalling with pip requirements.txt, run:"
           "\n $>pip install -r requirements.txt"
-          "\nInstalling with Poetry, run:"
+          "\n\nInstalling with Poetry, run:"
           "\n $>poetry install"
         )
     sys.exit(1)
@@ -83,10 +83,9 @@ compare_versions("requirements.txt", "txt")
 print("\n>> .TOML:")
 compare_versions("pyproject.toml", "toml")
 
-# programa so corre isto se passar a validacao inicial
-# (se n tiver sys.exit para o programa)
+# program only keeps running if passing initial validation
 import numpy as np
-import pandas as pd
+import pandas as pd  # type: ignore
 import matplotlib.pyplot as plt
 
 # Creating the Arrays & num.computations [NUMPY]

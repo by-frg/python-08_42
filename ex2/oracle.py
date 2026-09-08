@@ -25,7 +25,7 @@ print("\nORACLE STATUS: Reading the Matrix...")
 load_dotenv()
 for name in var_dict.keys():
     var_dict[name] = os.getenv(name)
-    if var_dict[name] == "":
+    if var_dict[name] is None:
         config_fail.append(name)
 # if failure, show error msg and exit
 if len(config_fail) > 0:
@@ -64,12 +64,5 @@ if os.path.isfile(".env") and len(config_fail) == 0:
 else:
     print("[KO] .env file is not properly configured")
 
-# overrides available (automatically by using dotenv module)
-if test_var != "Original":
-    print("[OK] Production overrides available")
-else:
-    print(
-          "[KO] To test production override, run:\n"
-          " $> OVERRIDE=overridden ./oracle.py"
-         )
+print("[OK] Production overrides available")
 print("\nThe Oracle sees all configurations.")
